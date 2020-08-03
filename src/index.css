@@ -1,10 +1,32 @@
 body {
   margin: 0;
+
   font-family: 'Nunito', -apple-system, BlinkMacSystemFont,
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
   background-color: #D8DCE2;
+  line-height: 1;
+
+}
+
+.weathy-main__container {
+  background-color: #F5F6FA;
+}
+
+.weathy-header__container {
+  max-height: 5rem;
+  background-color: #FFFFFF;
+}
+
+.weathy-header__text {
+  font-family: 'Nunito-Extra-Bold';
+
+  color: #5FA6F1;
+
+  margin: 0;
+  padding: 1rem;
 }
 
 code {
@@ -15,4 +37,41 @@ code {
 @font-face {
   font-family: 'Nunito';
   src: local('Nunito'), url(./fonts/nunito/Nunito-Regular.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Nunito-Extra-Bold';
+  src: local('Nunito-Extra-Bold'), url(./fonts/nunito/Nunito-ExtraBold.ttf) format('truetype');
+}
+
+.weathy-main__container {
+  background-color: #F5F6FA;
+
+  padding: 1rem 1rem 3rem 1rem;
+}
+
+.day-table__container {
+  padding: 1rem;
+  border-radius: 0.65rem;
+
+  background-color: #5FA6F1;
+  color: #FFFFFF;
+  
+  font-weight: bold;
+}
+
+.day-table__row {
+  min-height: 1rem;
+  padding: 1rem;
+}
+
+.week-table__container {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-column-gap: 0.5rem;
+  grid-gap: 0.5rem;
+}
+
+.week-table__item {
+  background-color: #FFFFFF;
 }
