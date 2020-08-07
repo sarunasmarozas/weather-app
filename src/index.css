@@ -65,13 +65,39 @@ code {
   padding: 1rem;
 }
 
-.week-table__container {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  grid-column-gap: 0.5rem;
-  grid-gap: 0.5rem;
-}
-
 .week-table__item {
   background-color: #FFFFFF;
 }
+
+table {
+  border-collapse: collapse;
+  letter-spacing: 1px;
+  font-size: 0.8rem;
+  border-collapse: separate;
+  border-spacing: 0.5rem;
+}
+
+td, th {
+  padding: 5px 5px;
+}
+
+td {
+  background-color: #FFFFFF;
+  text-align: center;
+  text-justify: center;
+}
+
+tr > td {
+  border-radius: 0.25rem;
+}
+
+.borderless {
+  background-color: transparent;
+  border: none;
+}
+
+
+
+/* tr:first-child td {
+  border: none;
+} */
