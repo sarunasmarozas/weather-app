@@ -60,9 +60,18 @@ code {
   font-weight: bold;
 }
 
-.day-table__row {
+.day-table__row--small {
   min-height: 1rem;
-  padding: 1rem;
+  padding: 0 0.5rem;
+}
+
+.day-table__form--row {
+  padding: 0.5rem 1.25rem;
+}
+
+.day-table__row--big {
+  min-height: 2rem;
+  padding: 1rem 0.5rem;
 }
 
 .week-table__item {
@@ -74,11 +83,11 @@ table {
   letter-spacing: 1px;
   font-size: 0.8rem;
   border-collapse: separate;
-  border-spacing: 0.5rem;
+  border-spacing: 0.15rem;
 }
 
 td, th {
-  padding: 5px 5px;
+  padding: 0.5rem;
 }
 
 td {
@@ -96,8 +105,132 @@ tr > td {
   border: none;
 }
 
+.weathy-main__today-header {
+  margin-left: 0.5rem;
+  padding: 1rem 0 1.5rem 0;
+  font-weight: bold;
+}
 
+.day-table__search--button {
+  font-size: 0.75rem;
+  background-color: #FFFFFF;
+  color: #5FA6F1;
 
-/* tr:first-child td {
-  border: none;
-} */
+  border-radius: 0.75rem;
+  border: 0;
+  outline: 0;
+}
+
+.day-table__search--button:focus {
+  color: #707070;
+
+  border: 0;
+  box-shadow: none !important;
+}
+
+.form-control {
+  font-size: 0.75rem;
+  font-weight: bold;
+
+  border: 0;
+  border-radius: 0.75rem 0 0 0.75rem;
+  outline: 0;
+}
+
+.form-control:focus {
+  box-shadow: none !important;
+}
+
+.day-table__icon--search {
+  height: 1rem;
+  width: auto;
+}
+
+.day-table__icon {
+  height: 4.5rem;
+  max-height: 4.5rem;
+  width: auto;
+  max-width: 4.5rem;
+}
+
+.day-table__text--temperature {
+  font-size: 3.25rem;
+  font-weight: bold;
+}
+
+.day-table__text--degrees {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.day-table__icon--small {
+  height: 1rem;
+  width: auto;
+}
+
+.day-table__text--small {
+  font-size: 0.9rem;
+  font-weight: normal;
+
+  padding: 0 0.25rem;
+}
+
+.week--table__container {
+  display: grid;
+  grid-template-rows: repeat(7, 1fr);
+  grid-gap: 0.3rem;
+}
+
+.week--table__row {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-gap: 0.3rem;
+}
+
+.week--table__conditions--icon > svg.day-table__icon {
+  max-width: 1.5rem;
+  height: auto;
+  color: gray;
+}
+
+.week--table__conditions--temperature {
+  font-size: 1rem;
+}
+
+.week--table__conditions-col-1:first-child {
+  border-radius: 0.5rem 0 0 0;
+}
+
+.week--table__conditions-col-1:last-child {
+  border-radius: 0 0 0 0.5rem;
+}
+
+.week--table__conditions-col-7:first-child {
+  border-radius: 0 0.5rem 0 0;
+}
+
+.week--table__conditions-col-7:last-child {
+  border-radius: 0 0 0.5rem 0;
+}
+
+.week--table__conditions--cell-container {
+  background-color: #80A1C4;
+}
+
+@media only screen and (min-width: 1020px) {
+  .week--table__conditions--cell-container {
+    width: 5.5rem;
+    max-width: 5.5rem;
+    height: 7.5rem;
+    max-height: 7.5rem;
+  }
+}
+
+@media only screen and (min-width: 1430px) {
+  .week--table__conditions--cell-container {
+    width: 6.5rem;
+    max-width: 6.5rem;
+    height: 7.5rem;
+    max-height: 7.5rem;
+  }
+}
