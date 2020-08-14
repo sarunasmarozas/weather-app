@@ -1,152 +1,53 @@
-import React, { useEffect, useState } from 'react';
-import moment from 'moment';
+import React, { useState, useEffect } from 'react';
 
-import { getForecastByType } from '../../../api/meteo/meteo.api';
-import { MeteoData } from '../../../api/meteo/types/meteo.types';
+import { MeteoTimestamp } from '../../../api/meteo/types/meteo.types';
+import { getCurrentWeekForecast } from '../../../api/meteo/meteo.api';
+import AdaptiveToScreenSizeTableRow from './AdaptiveToScreenSizeTableRow/AdaptiveToScreenSizeTableRow';
 
 const WeekTable: React.FC = () => {
-    const [data, setData] = useState<MeteoData | undefined>(undefined);
+    const [weekData, setWeekData] = useState<Array<MeteoTimestamp>>();
     
     useEffect(() => {
-        if (!data) {
-            getForecastByType('vilnius', 'long-term')
+        if (!weekData) {
+            getCurrentWeekForecast('vilnius', new Date())
                 .then(data => {
-                    setData(data);
+                    setWeekData(data);
                 })
             .catch(err => console.log('An error occurred while fetching data: ', err))
         } else return
-    }, [data]);
+    }, [weekData]);
 
-    let week = [];
-    const currentDate = moment();
-    const weekStart = currentDate.clone().startOf('isoWeek');
-
-    const hours = ['03:00', '09:00', '15:00', '18:00', '21:00', '00:00'];
-
-    for (let i = 0; i <= 6; i++) {
-        week.push(moment(weekStart).add(i, 'days').format("dddd"));
-    }
+    const dayOne = weekData?.filter((timestamp, i) => i <= 5 );
+    const dayTwo = weekData?.filter((timestamp, i) => i >= 6 && i <= 11 );
+    const dayThree = weekData?.filter((timestamp, i) => i >= 12 && i <= 17 );
+    const dayFour = weekData?.filter((timestamp, i) => i >= 18 && i <= 23 );
+    const dayFive = weekData?.filter((timestamp, i) => i >= 24 && i <= 29 );
+    const daySix = weekData?.filter((timestamp, i) => i >= 30 && i <= 35 );
+    const daySeven = weekData?.filter((timestamp, i) => i >= 36 && i <= 41 );
+    
 
     return (
-        <table>
-            <thead>
-                <tr>
-                    <td className="borderless"></td>
-                    {hours.map(hour => {
-                        return (
-                            <td key={hour}>{hour}</td>
-                        );
-                    })}
-                </tr>
-                {week.map(day => {
-                    return (
-                        <tr key={day}>
-                            <td className="borderless">
-                                <p>{day}</p>
-                            </td>
-                            <td>
-                                <div className="container">
-                                    <div className="row align-items-center justify-content-center">
-                                        <div className="col p-2">
-                                            <strong>Temp.:</strong>
-                                            <p>20 degrees</p>
-                                        </div>
-                                    </div>
-                                    <div className="row align-items-center justify-content-center">
-                                        <div className="col p-2">
-                                            <strong>Precipit.:</strong>
-                                            <p>30% chance</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <div className="container">
-                                    <div className="row align-items-center justify-content-center">
-                                        <div className="col p-2">
-                                            <strong>Temp.:</strong>
-                                            <p>20 degrees</p>
-                                        </div>
-                                    </div>
-                                    <div className="row align-items-center justify-content-center">
-                                        <div className="col p-2">
-                                            <strong>Precipit.:</strong>
-                                            <p>30% chance</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <div className="container">
-                                    <div className="row align-items-center justify-content-center">
-                                        <div className="col p-2">
-                                            <strong>Temp.:</strong>
-                                            <p>20 degrees</p>
-                                        </div>
-                                    </div>
-                                    <div className="row align-items-center justify-content-center">
-                                        <div className="col p-2">
-                                            <strong>Precipit.:</strong>
-                                            <p>30% chance</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <div className="container">
-                                    <div className="row align-items-center justify-content-center">
-                                        <div className="col p-2">
-                                            <strong>Temp.:</strong>
-                                            <p>20 degrees</p>
-                                        </div>
-                                    </div>
-                                    <div className="row align-items-center justify-content-center">
-                                        <div className="col p-2">
-                                            <strong>Precipit.:</strong>
-                                            <p>30% chance</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <div className="container">
-                                    <div className="row align-items-center justify-content-center">
-                                        <div className="col p-2">
-                                            <strong>Temp.:</strong>
-                                            <p>20 degrees</p>
-                                        </div>
-                                    </div>
-                                    <div className="row align-items-center justify-content-center">
-                                        <div className="col p-2">
-                                            <strong>Precipit.:</strong>
-                                            <p>30% chance</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <div className="container">
-                                    <div className="row align-items-center justify-content-center">
-                                        <div className="col p-2">
-                                            <strong>Temp.:</strong>
-                                            <p>20 degrees</p>
-                                        </div>
-                                    </div>
-                                    <div className="row align-items-center justify-content-center">
-                                        <div className="col p-2">
-                                            <strong>Precipit.:</strong>
-                                            <p>30% chance</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                    );
-                })}
-            </thead>
-        </table>
+        <div className="week--table__container">
+            <div className="week--table__row">
+                {/* this is why Meteo API would need an alternative in real life */}
+                {/* let's do the bitter sweet hardcoding */}
+                <p>{''}</p>
+                <p>06:00</p>
+                <p>10:00</p>
+                <p>14:00</p>
+                <p>18:00</p>
+                <p>22:00</p>
+                <p>02:00</p>
+            </div>
+            <AdaptiveToScreenSizeTableRow dayData={dayOne} colNumber={1} />
+            <AdaptiveToScreenSizeTableRow dayData={dayTwo} colNumber={2} />
+            <AdaptiveToScreenSizeTableRow dayData={dayThree} colNumber={3} />
+            <AdaptiveToScreenSizeTableRow dayData={dayFour} colNumber={4} />
+            <AdaptiveToScreenSizeTableRow dayData={dayFive} colNumber={5} />
+            <AdaptiveToScreenSizeTableRow dayData={daySix} colNumber={6} />
+            <AdaptiveToScreenSizeTableRow dayData={daySeven} colNumber={7} />
+        </div>
     );
-
 }
 
 export default WeekTable;
