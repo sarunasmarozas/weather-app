@@ -19,12 +19,22 @@ const url = {
     placesByForecastType: '/places/{place}/forecasts/{forecastType}',
 };
 
-export const getForecastByType = async (place: string, forecastType: string): Promise<MeteoData> => {
-    const response = await http.get<MeteoData>(makeUrl(url.placesByForecastType, { place, forecastType }));
-
-    return response.data;
-};
-
+// Get data on initial app load
+export const getCurrentWeekForecast = async (place: string, startDate: Date): Promise<Array<any>> => {
+    const response = await http
+        .get<MeteoData>(makeUrl(url.placesByForecastType,
+            { place, forecastType: forecastType })
+        );
+        
+        // Meteo API grazina skirtinga timestamp'u skaiciu kiekvienai savaites dienai, bet visada 84 is viso.
+        // Todel tiesiog pasiimame 42 timestampus, nes tiek reikia septynioms dienoms.
+        // Realybeje taip daryti negaletume, todel galbut reiktu alternatyvos Meteo API.
+        const currentWeekData: MeteoTimestamp[] = response.data.forecastTimestamps.filter((timestamp, index) => index % 2 === 0);
+        
+        return currentWeekData;
+    };
+    
+// Get data on each search
 export const getCurrentDayForecast = async (place: string, date: Date): Promise<MeteoTimestamp | undefined> => {
     const response = await http
         .get<MeteoData>(makeUrl(url.placesByForecastType, 
@@ -35,17 +45,3 @@ export const getCurrentDayForecast = async (place: string, date: Date): Promise<
 
     return currentDayForecast;
 };
-
-export const getCurrentWeekForecast = async (place: string, startDate: Date): Promise<Array<any>> => {
-    const response = await http
-        .get<MeteoData>(makeUrl(url.placesByForecastType,
-            { place, forecastType: forecastType }));
-     
-    // Meteo API grazina skirtinga timestamp'u skaiciu kiekvienai savaites dienai, bet visada 84 is viso.
-    // Todel tiesiog pasiimame 42 timestampus, nes tiek reikia septynioms dienoms.
-    // Realybeje taip daryti negaletume, todel galbut reiktu alternatyvos Meteo API.
-    const currentWeekData: MeteoTimestamp[] = response.data.forecastTimestamps.filter((timestamp, index) => index % 2 === 0);
-
-    return currentWeekData;
-};
-

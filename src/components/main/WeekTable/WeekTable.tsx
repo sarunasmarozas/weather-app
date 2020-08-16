@@ -1,21 +1,29 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 
 import { MeteoTimestamp } from '../../../api/meteo/types/meteo.types';
 import { getCurrentWeekForecast } from '../../../api/meteo/meteo.api';
 import AdaptiveToScreenSizeTableRow from './AdaptiveToScreenSizeTableRow/AdaptiveToScreenSizeTableRow';
+import { CityQueryContext } from '../../../providers/CityQueryProvider';
 
 const WeekTable: React.FC = () => {
+    const { city } = useContext(CityQueryContext);
+
     const [weekData, setWeekData] = useState<Array<MeteoTimestamp>>();
+    const [cityQuery, setCityQuery] = useState<string>('Vilnius')
     
     useEffect(() => {
-        if (!weekData) {
-            getCurrentWeekForecast('vilnius', new Date())
-                .then(data => {
-                    setWeekData(data);
-                })
-            .catch(err => console.log('An error occurred while fetching data: ', err))
-        } else return
-    }, [weekData]);
+        setCityQuery(city);
+    }, [city]);
+    
+    useEffect(() => {
+        getCurrentWeekForecast(cityQuery, new Date())
+        .then(data => {
+            setWeekData(data);
+        })
+        .catch(err => console.log('An error occurred while fetching data: ', err))
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [cityQuery]);
+    
 
     const dayOne = weekData?.filter((timestamp, i) => i <= 5 );
     const dayTwo = weekData?.filter((timestamp, i) => i >= 6 && i <= 11 );
@@ -29,23 +37,37 @@ const WeekTable: React.FC = () => {
     return (
         <div className="week--table__container">
             <div className="week--table__row">
-                {/* this is why Meteo API would need an alternative in real life */}
-                {/* let's do the bitter sweet hardcoding */}
-                <p>{''}</p>
-                <p>06:00</p>
-                <p>10:00</p>
-                <p>14:00</p>
-                <p>18:00</p>
-                <p>22:00</p>
-                <p>02:00</p>
+                {/* the inconsistency from API data comes down to here;
+                let's do the bitter sweet hard-coding; */}
+                <div>
+                    <p>{''}</p>
+                </div>    
+                <div className="week--table__timeslot">
+                    <p className="week--table__time">06:00</p>
+                </div> 
+                <div className="week--table__timeslot">
+                    <p className="week--table__time">10:00</p>
+                </div> 
+                <div className="week--table__timeslot">
+                    <p className="week--table__time">14:00</p>
+                </div> 
+                <div className="week--table__timeslot">
+                    <p className="week--table__time">18:00</p>
+                </div> 
+                <div className="week--table__timeslot">
+                    <p className="week--table__time">22:00</p>
+                </div> 
+                <div className="week--table__timeslot">
+                    <p className="week--table__time">02:00</p>
+                </div> 
             </div>
-            <AdaptiveToScreenSizeTableRow dayData={dayOne} colNumber={1} />
-            <AdaptiveToScreenSizeTableRow dayData={dayTwo} colNumber={2} />
-            <AdaptiveToScreenSizeTableRow dayData={dayThree} colNumber={3} />
-            <AdaptiveToScreenSizeTableRow dayData={dayFour} colNumber={4} />
-            <AdaptiveToScreenSizeTableRow dayData={dayFive} colNumber={5} />
-            <AdaptiveToScreenSizeTableRow dayData={daySix} colNumber={6} />
-            <AdaptiveToScreenSizeTableRow dayData={daySeven} colNumber={7} />
+            <AdaptiveToScreenSizeTableRow dayData={dayOne} rowNumber={1} />
+            <AdaptiveToScreenSizeTableRow dayData={dayTwo} rowNumber={2} />
+            <AdaptiveToScreenSizeTableRow dayData={dayThree} rowNumber={3} />
+            <AdaptiveToScreenSizeTableRow dayData={dayFour} rowNumber={4} />
+            <AdaptiveToScreenSizeTableRow dayData={dayFive} rowNumber={5} />
+            <AdaptiveToScreenSizeTableRow dayData={daySix} rowNumber={6} />
+            <AdaptiveToScreenSizeTableRow dayData={daySeven} rowNumber={7} />
         </div>
     );
 }

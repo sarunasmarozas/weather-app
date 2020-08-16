@@ -8,11 +8,11 @@ import { ReactComponent as WindDirection } from '../../../../../assets/icons/win
 
 interface LargerScreenRowProps {
     dayData: MeteoTimestamp[] | undefined;
-    colNumber: number;
+    rowNumber: number;
 }
 
 
-const LargerScreenRow: React.FC<LargerScreenRowProps> = ({ dayData, colNumber }) => {
+const LargerScreenRow: React.FC<LargerScreenRowProps> = ({ dayData, rowNumber }) => {
     const dayTimeFn = () => getHours(new Date()) <= 18 ? true : false;
     const today = moment().format('ddd');
 
@@ -22,12 +22,12 @@ const LargerScreenRow: React.FC<LargerScreenRowProps> = ({ dayData, colNumber })
     });
 
     return (
-        <>
+        <div className="week--table__row">
             { dayData?.map((day, i) => (
                 <React.Fragment key={i}>
                         { day.day 
-                            ? (<div>{getDayShorthand(day.day, colNumber) === today ? 'Today' : getDayShorthand(day.day, colNumber)}</div>) 
-                            : (<div className={`week--table__conditions--cell-container week--table__conditions-col-${colNumber}`}>
+                            ? (<div className="week--table__day-name--slot">{getDayShorthand(day.day, rowNumber) === today ? 'Today' : getDayShorthand(day.day, rowNumber)}</div>) 
+                            : (<div className={`week--table__conditions--cell-container week--table__conditions-row-${rowNumber}`}>
                                     <div className="row justify-content-center align-items-center">
                                         <div className="col week--table__conditions--icon">
                                             <CurrentConditionsIcon 
@@ -53,7 +53,7 @@ const LargerScreenRow: React.FC<LargerScreenRowProps> = ({ dayData, colNumber })
                         }
                 </React.Fragment>    
             )) }
-        </>
+        </div>
     );
 };
 
