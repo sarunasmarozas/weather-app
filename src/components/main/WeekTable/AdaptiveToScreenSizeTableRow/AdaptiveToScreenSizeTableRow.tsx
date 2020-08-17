@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { MeteoTimestamp } from '../../../../api/meteo/types/meteo.types';
 import MobileDeviceRow from './components/MobileDeviceRow';
-import LargerScreenRow from './components/LargerScreenRow';
+import LargerScreenRow from './components/LargerScreenRow/LargerScreenRow';
 
 interface AdaptiveToScreenSizeTableRowProps {
     dayData: MeteoTimestamp[] | undefined;
@@ -26,7 +26,9 @@ const AdaptiveToScreenSizeTableRow: React.FC<AdaptiveToScreenSizeTableRowProps> 
 
     return (
         <div>
-            {isMobileScreenSize ? (<MobileDeviceRow dayData={dayData} />) : (<LargerScreenRow dayData={dayData} rowNumber={rowNumber}/>)}
+            { isMobileScreenSize 
+            ? (<MobileDeviceRow dayData={dayData} />) 
+            : (<LargerScreenRow dayData={dayData} rowNumber={rowNumber} />) }
         </div>
     );
 };

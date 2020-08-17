@@ -2,7 +2,7 @@ import React from 'react';
 
 import DayTable from './DayTable/DayTable';
 import WeekTable from './WeekTable/WeekTable';
-import { getCurrentWeekDays } from '../../api/meteo/helpers/date.helpers';
+import { getCurrentWeekDays } from '../../helpers/date.helpers';
 import CityQueryProvider from '../../providers/CityQueryProvider';
 
 const Main: React.FC = () => {

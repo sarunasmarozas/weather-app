@@ -10,7 +10,7 @@ import { ReactComponent as SoftWind } from '../../../assets/icons/soft-wind.svg'
 import { MeteoTimestamp } from '../../../api/meteo/types/meteo.types';
 import { getCurrentDayForecast } from '../../../api/meteo/meteo.api';
 import CurrentConditionsIcon from './CurrentConditionsIcon';
-import { getHours } from '../../../api/meteo/helpers/date.helpers';
+import { getHours } from '../../../helpers/date.helpers';
 import { CityQueryContext } from '../../../providers/CityQueryProvider';
 
 const DayTable: React.FC = () => {

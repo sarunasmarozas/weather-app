@@ -18,3 +18,5 @@ export const getCurrentWeekDays = (): string => {
 export const getDayShorthand = (date: Date, daysToAdd: number): string => {
     return moment(date).add(daysToAdd - 1, 'day').format('ddd');
 }; 
+
+export const today = moment().format('ddd');

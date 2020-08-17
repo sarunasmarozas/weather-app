@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-import { makeUrl } from './helpers/url.helpers';
-import { formatDate } from './helpers/date.helpers';
+import { makeUrl } from '../../helpers/url.helpers';
+import { formatDate } from '../../helpers/date.helpers';
 import { MeteoData, MeteoTimestamp } from '../meteo/types/meteo.types';
 
 const forecastType = 'long-term';

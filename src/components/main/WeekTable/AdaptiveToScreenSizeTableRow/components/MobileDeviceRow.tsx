@@ -4,8 +4,6 @@ import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
-import Typography from '@material-ui/core/Typography';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import { MeteoTimestamp } from '../../../../../api/meteo/types/meteo.types';
 
@@ -30,18 +28,22 @@ const MobileDeviceRow: React.FC<MobileDeviceRowProps> = ({ dayData }) => {
 
   return (
     <div className={classes.root}>
+      {/* map data here. One Accordion item for each day. */}
       <Accordion>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel1a-content"
-          id="panel1a-header"
-        >
-          <Typography className={classes.heading}>Mon</Typography>
-        </AccordionSummary>
+        <AccordionSummary>Mon</AccordionSummary>
         <AccordionDetails>
-          <Typography>
-            Blah
-          </Typography>
+          <div className="container">
+            <div className="row">
+              <div className="col">
+                <p>Hello</p>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col">
+                <p>How are you</p>
+              </div>
+            </div>
+          </div>
         </AccordionDetails>
       </Accordion>
     </div>
