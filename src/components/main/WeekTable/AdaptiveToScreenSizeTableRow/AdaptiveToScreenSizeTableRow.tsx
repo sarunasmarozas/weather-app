@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 
 import { MeteoTimestamp } from '../../../../api/meteo/types/meteo.types';
 import MobileDeviceRow from './components/MobileDeviceRow';
-import LargerScreenRow from './components/LargerScreenRow';
+import LargerScreenRow from './components/LargerScreenRow/LargerScreenRow';
 
 interface AdaptiveToScreenSizeTableRowProps {
     dayData: MeteoTimestamp[] | undefined;
-    colNumber: number;
+    rowNumber: number;
 }
 
-const AdaptiveToScreenSizeTableRow: React.FC<AdaptiveToScreenSizeTableRowProps> = ({ dayData, colNumber }) => {
+const AdaptiveToScreenSizeTableRow: React.FC<AdaptiveToScreenSizeTableRowProps> = ({ dayData, rowNumber }) => {
     const [isMobileScreenSize, setIsMobileScreenSize] = useState<boolean>();
 
     window.addEventListener('load', () => {
@@ -25,8 +25,10 @@ const AdaptiveToScreenSizeTableRow: React.FC<AdaptiveToScreenSizeTableRowProps> 
     });
 
     return (
-        <div className="week--table__row">
-            {isMobileScreenSize ? (<MobileDeviceRow dayData={dayData} />) : (<LargerScreenRow dayData={dayData} colNumber={colNumber}/>)}
+        <div>
+            { isMobileScreenSize 
+            ? (<MobileDeviceRow dayData={dayData} />) 
+            : (<LargerScreenRow dayData={dayData} rowNumber={rowNumber} />) }
         </div>
     );
 };
